@@ -1,8 +1,8 @@
 import random
 import string
 import os
+import pathlib
 
-os.system('sudo pip install -r requirements.txt')
 os.system('clear')
 data = open('data.json', 'w+')
 data.write('{')
@@ -25,7 +25,7 @@ def select(choices, numOptions, question, default=1):
 def setupStartup():
 	#Add decapitator.py to rc.local so it runs on startup
 	print('In order for this program to do what it needs to do, it needs to run on startup')
-	approval = input('Would you like this to do that automatically? (y/n)')
+	approval = input('Would you like this to do that automatically? (y/n): ')
 	while approval.lower() not in {'y', 'n', 'yes', 'no'}:
 		approval = input('Would you like this to do that automatically? (y/n): ')
 	if approval.lower()[0] =='y':
@@ -33,15 +33,16 @@ def setupStartup():
 		check_rc = open('/etc/rc.local', 'r')
 		shouldWrite = True
 		for line in check_rc:
-			if os.path.abspath(__file__).replace('init.py', 'decapitator.py') in line:
+			if 'python3 decapitator.py ' in line:
 				shouldWrite = False
 				print('It looks like this program is already in your startup. It won\'t be added again')
 		if (shouldWrite):
-			rc.write('cd /')
-			path = os.path.abspath(__file__).replace('init.py', 'decapitator.py')
-			
-			rc.write('python3 ' + path)
-			rc.write('cd /')
+			print(pathlib.Path(__file__).parent.absolute())
+			rc.write('cd ' + str(pathlib.Path(__file__).parent.absolute()) + '\n')
+			rc.write('python3 decapitator.py \n')
+			rc.write('cd \n')
+			rc.flush()
+			rc.close()
 
 
 
