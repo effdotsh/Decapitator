@@ -26,29 +26,6 @@ def select(choices, numOptions, question, default=1):
             print("Please select a valid option")
 
 
-def setup_startup():
-    # Add decapitator.py to rc.local so it runs on startup
-    print('In order for this program to do what it needs to do, it needs to run on startup')
-    approval = input('Would you like this to do that automatically? (y/n): ')
-    while approval.lower() not in {'y', 'n', 'yes', 'no'}:
-        approval = input('Would you like this to do that automatically? (y/n): ')
-    if approval.lower()[0] == 'y':
-        rc = open('/etc/rc.local', 'a')
-        check_rc = open('/etc/rc.local', 'r')
-        shouldWrite = True
-        for line in check_rc:
-            if 'python3 decapitator.py ' in line:
-                shouldWrite = False
-                print('It looks like this program is already in your startup. It won\'t be added again')
-        if (shouldWrite):
-            print(pathlib.Path(__file__).parent.absolute())
-            rc.write(f'cd {str(pathlib.Path(__file__).parent.absolute())}\n')
-            rc.write('python3 decapitator.py \n')
-            rc.write('cd \n')
-            rc.flush()
-            rc.close()
-
-
 options = '''Thank you for installing Decapitator, a simple tool that allows you not to worry about changing 
 non-static IP addresses. Please select a method of notification (currently I have only set up one, more will 
 hopefully come in the future): 
@@ -82,7 +59,6 @@ if selectedOption == 1:
     if (rand_or_custom == 2):
         access_code = input("Make a unique access code: ")
     data.write('"access_code":"' + access_code + '",')
-    setup_startup()
     print('\n')
     print(
         "That's it! Thank you for using decapitator, the best headless solution. You can now access your pi's ip at "

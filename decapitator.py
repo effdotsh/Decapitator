@@ -7,6 +7,20 @@ with open('data.json', 'r') as openfile:
     data = json.load(openfile)
 
 
+# def connected():
+#     if socket.gethostbyname(socket.gethostname()) == "127.0.0.1":
+#         return False
+#     else:
+#         return True
+def wait_for_internet_connection():
+    while True:
+        try:
+            response = requests.get('http://google.com/',timeout=5)
+            return
+        except (requests.ConnectionError, requests.Timeout) as exception:
+            pass
+
+
 def send_data(key, info):
     if (data['meathod'] == 'Dweet'):
         r = requests.post(f'https://dweet.io/dweet/for/{data["access_code"]}?{key}={info}')
@@ -24,6 +38,8 @@ def get_ip():
         s.close()
     return ip
 
+
+wait_for_internet_connection()
 
 # read the output of 'hostname -I'
 ip = get_ip()

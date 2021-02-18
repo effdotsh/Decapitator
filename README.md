@@ -11,7 +11,7 @@ Decapitator is a tool to help you run Raspberry Pi's (and other Linux based mach
 
 
 
-    
+
 ## Installation
 First start by cloning the repository
 
@@ -27,13 +27,27 @@ Select details about your Decapitation, this should be pretty straightforward as
 
 At the end, the program will say that you can access your IP at `https://dweet.io/get/latest/dweet/for/XXXXXXXXXXXXXX`. Make sure you copy down this link. 
 
-Then open terminal, and type 
 
-> sudo nano /etc/rc.local
 
-Make sure that `exit 0` is the last line. If it is not, delete any previous mentions of it, and add it as the last line. Then save and exit the file.
+Next you need to setup the program to run on boot. This will be done through Crontab,
 
-That's It! Thank you for using Decapitator, the best tool for running headless Pi's. 
+> crontab -e
+
+Choose the default editor, nano.
+
+At the bottom of the file, add:
+
+> @reboot cd PATH_TO_DECAPITATOR && python3 decapitator.py
+
+Most likely, this will be:
+
+> @reboot cd /home/pi/Decapitator/ && python3 decapitator.py
+
+Save and exit the file.
+
+
+
+That's It! Thank you for using Decapitator, you can now reboot to test. 
 
 
 ## Bugs
