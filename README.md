@@ -17,33 +17,15 @@ First start by cloning the repository
 
 >cd
 >git clone https://github.com/AI-Spawn/Decapitator
->
-Then run `init.py`
 
-> cd Decapitator 
-> python3 init.py
+
+Then run init.py
+>cd Decapitator 
+>python3 init.py
 
 Select details about your Decapitation, this should be pretty straightforward as there are only really one or two choices.
 
 At the end, the program will say that you can access your IP at `https://dweet.io/get/latest/dweet/for/XXXXXXXXXXXXXX`. Make sure you copy down this link. 
-
-
-
-Next you need to setup the program to run on boot. This will be done through Crontab,
-
-> crontab -e
-
-Choose the default editor, nano.
-
-At the bottom of the file, add:
-
-> @reboot cd PATH_TO_DECAPITATOR && python3 decapitator.py
-
-Most likely, this will be:
-
-> @reboot cd /home/pi/Decapitator/ && python3 decapitator.py
-
-Save and exit the file.
 
 
 

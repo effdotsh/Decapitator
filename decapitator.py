@@ -22,7 +22,7 @@ def wait_for_internet_connection():
 
 
 def send_data(key, info):
-    if (data['meathod'] == 'Dweet'):
+    if data['method'] == 'Dweet':
         r = requests.post(f'https://dweet.io/dweet/for/{data["access_code"]}?{key}={info}')
         print(r)
 
